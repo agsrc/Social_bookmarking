@@ -1,0 +1,12 @@
+
+View - JSP(java server pages)
+
+(backend i.e server)Controller-Servlets
+
+(backend i.e server)Model- java classes- holds business logic, divides into two sections Managers/Services(real service logic) and DAOS(data access object)(SQL query).
+
+**note database is conected here
+
+data flow
+
+user in browser requests some data --this action would-- invoke controller -- then the view layer manages the request ehre dta may be submited or retrived from database using dao.

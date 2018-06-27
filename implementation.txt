@@ -1,0 +1,26 @@
+-TDD(test driven devlopment)
+-Patterns(MVC & Singelton)
+-Eclipse IDE
+-Object oriented design
+
+**** instead of sql datastore.java would be used.
+**** entities would become the correspond to table in the data structure (i.e book user bookmark weblink)
+**** the row data would be filled by the instance of entities.(hibernate framework does that automatically).
+
+More details--
+
+
+we will implement both managers and daos as a model.
+
+for view we would  implement View.java.
+
+for database we would java class.
+
+entities or classes would be created which correspond to database tables.
+
+an the instance of entities would form the row data.
+
+
+-------------------------------------------------------------------------------------------------------
+define entities
+define manager classes that is the view 

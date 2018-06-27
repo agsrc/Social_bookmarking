@@ -1,0 +1,6 @@
+-System involves 5 user and 15 bookmark(which include weblink,books,movies.).
+-we need a framework to store this data.
+-(for user it would be randomisation)each user can bookmark any five items(bookmarking process)-- bookmarking would be done randomly(using random function of math class).
+--(for user it would be randomisation)marking kid friendly type of bookmarks by chief/editor.
+--(for user it would be randomisation)share kid friendly bookmarks(of the class books and weblinks only) with partner sites.
+ 
