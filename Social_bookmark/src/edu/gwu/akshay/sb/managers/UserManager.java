@@ -28,7 +28,7 @@ public class UserManager { // creating singletons in manager package-- to avoid 
 		return user;
 	}
 
-	public User[] getUser() {
+	public User[] getUsers() {
 		return dao.getUsers();
 	}
 
