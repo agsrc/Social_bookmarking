@@ -6,6 +6,7 @@ public class User {
 	private String password;
 	private String firstname;
 	private String lastname;
+	private int gender;
 	private String userType;
 
 
@@ -56,6 +57,14 @@ public class User {
 
 	public void setId(long id) {
 		this.id = id;
+	}
+
+	public int getGender() {
+		return gender;
+	}
+
+	public void setGender(int gender) {
+		this.gender = gender;
 	}
 	
 
