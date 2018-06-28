@@ -1,6 +1,8 @@
 package edu.gwu.akshay.sb.managers;
 
+import edu.gwu.akshay.sb.dao.BookmarkDao;
 import edu.gwu.akshay.sb.entities.Book;
+import edu.gwu.akshay.sb.entities.Bookmark;
 import edu.gwu.akshay.sb.entities.Movie;
 import edu.gwu.akshay.sb.entities.WebLink;
 
@@ -10,6 +12,7 @@ public class BookmarkManager {
 	}
 
 	private static BookmarkManager instance = new BookmarkManager();
+	private static BookmarkDao dao =new BookmarkDao();
 
 	public static BookmarkManager getInstance() {
 		return instance;
@@ -55,4 +58,7 @@ public class BookmarkManager {
 		return book;
 	}
 
+	public Bookmark[][] getBookmark() {
+		return dao.getBookmarks();
+	} 
 }

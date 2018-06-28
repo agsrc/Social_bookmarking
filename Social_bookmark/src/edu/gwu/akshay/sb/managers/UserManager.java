@@ -1,9 +1,12 @@
 package edu.gwu.akshay.sb.managers;
 
+import edu.gwu.akshay.sb.dao.UserDao;
 import edu.gwu.akshay.sb.entities.User;
 
+//managers would be invoked through controller
 public class UserManager { // creating singletons in manager package-- to avoid unauthorized instantiation
 	private static UserManager instance = new UserManager();
+	private static UserDao dao = new UserDao();
 
 	private UserManager() {
 	} // i.e create private constructors
@@ -24,4 +27,9 @@ public class UserManager { // creating singletons in manager package-- to avoid 
 		user.setUserType(userType);
 		return user;
 	}
+
+	public User[] getUser() {
+		return dao.getUsers();
+	}
+
 }
