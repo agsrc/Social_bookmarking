@@ -12,14 +12,15 @@ import edu.gwu.akshay.sb.managers.UserManager;
 
 //database alternative- correspondingly getter and setters would be used in place of SQL queries in DAO 
 public class DataStore {
-	private static final int USER_BOOKMARK_LIMIT = 5;
-	private static final int BOOKMARK_COUNT_PER_TYPE = 5;
-	private static final int BOOKMARK_TYPES_COUNT = 3;
-	private static final int TOTAL_USER_COUNT = 5;
+	public static final int USER_BOOKMARK_LIMIT = 5;
+	public static final int BOOKMARK_COUNT_PER_TYPE = 5;
+	public static final int BOOKMARK_TYPES_COUNT = 3;
+	public static final int TOTAL_USER_COUNT = 5;
 
 	private static User[] users = new User[TOTAL_USER_COUNT]; // data structure to store user information
 	private static Bookmark[][] bookmarks = new Bookmark[BOOKMARK_TYPES_COUNT][BOOKMARK_COUNT_PER_TYPE];
 	private static UserBookmark[] userBookmarks = new UserBookmark[TOTAL_USER_COUNT * USER_BOOKMARK_LIMIT];
+	private static int bookmarkIndex;
 
 	public static void loadData() {
 		loadUsers();
@@ -32,13 +33,13 @@ public class DataStore {
 	private static void loadUsers() {
 		users[0] = UserManager.getInstance().createUser(1000, "user0@search4me.com", "test", "Anna", "M", Gender.FEMALE,
 				UserType.USER);
-		users[0] = UserManager.getInstance().createUser(1001, "user1@search4me.com", "test", "Sam", "M", Gender.MALE,
+		users[1] = UserManager.getInstance().createUser(1001, "user1@search4me.com", "test", "Sam", "M", Gender.MALE,
 				UserType.USER);
-		users[0] = UserManager.getInstance().createUser(1002, "user2@semanticsquare.com", "test", "Anita", "M",
+		users[2] = UserManager.getInstance().createUser(1002, "user2@search4me.com", "test", "Anita", "M",
 				Gender.FEMALE, UserType.EDITOR);
-		users[0] = UserManager.getInstance().createUser(1003, "user3@semanticsquare.com", "test", "Sara", "M",
+		users[3] = UserManager.getInstance().createUser(1003, "search4me.com", "test", "Sara", "M",
 				Gender.FEMALE, UserType.EDITOR);
-		users[0] = UserManager.getInstance().createUser(1004, "user4@semanticsquare.com", "test", "Dheeru", "m",
+		users[4] = UserManager.getInstance().createUser(1004, "search4me.com", "test", "Dheeru", "m",
 				Gender.MALE, UserType.CHIEF_EDITOR);
 
 	}
@@ -49,8 +50,8 @@ public class DataStore {
 				"	http://www.javaworld.com");
 		bookmarks[0][1] = BookmarkManager.getInstance().createWebLink(2001,
 				"How do I import a pre-existing Java project into Eclipse and get up and running?",
-				"	http://stackoverflow.com/questions/142863/how-do-i-import-a-pre-existing-java-project-into-eclipse-and-get-up-and-running",
-				"	http://www.stackoverflow.com");
+				"http://stackoverflow.com/questions/142863/how-do-i-import-a-pre-existing-java-project-into-eclipse-and-get-up-and-running",
+				"http://www.stackoverflow.com");
 		bookmarks[0][2] = BookmarkManager.getInstance().createWebLink(2002, "Interface vs Abstract Class",
 				"http://mindprod.com/jgloss/interfacevsabstract.html", "http://mindprod.com");
 		bookmarks[0][3] = BookmarkManager.getInstance().createWebLink(2003, "NIO tutorial by Greg Travis",
@@ -61,12 +62,12 @@ public class DataStore {
 
 	private static void loadMovies() {
 		bookmarks[1][0] = BookmarkManager.getInstance().createMovie(3000, "Citizen Kane", "", 1941,
-				new String[] { "Orson Welles", "Joseph Cotten" }, new String[] { "	Orson Welles" },
+				new String[] { "Orson Welles", "Joseph Cotten" }, new String[] { "Orson Welles" },
 				MovieGenre.CLASSICS, 8.5);
 		bookmarks[1][1] = BookmarkManager.getInstance().createMovie(3001, "The Grapes of Wrath", "", 1940,
 				new String[] { "Henry Fonda", "Jane Darwell" }, new String[] { "John Ford" }, MovieGenre.CLASSICS, 8.2);
 		bookmarks[1][2] = BookmarkManager.getInstance().createMovie(3002, "A Touch of Greatness", "", 2004,
-				new String[] { "Albert Cullum" }, new String[] { "	Leslie Sullivan" }, MovieGenre.DOCUMENTARIES, 7.3);
+				new String[] { "Albert Cullum" }, new String[] { "Leslie Sullivan" }, MovieGenre.DOCUMENTARIES, 7.3);
 		bookmarks[1][3] = BookmarkManager.getInstance().createMovie(3003, "The Big Bang Theory", "", 2007,
 				new String[] { "Kaley Cuoco", "Jim Parsons" }, new String[] { "Chuck Lorre", "Bill Prady" },
 				MovieGenre.TV_SHOWS, 8.7);
@@ -97,5 +98,11 @@ public class DataStore {
 
 	public static Bookmark[][] getBookmarks() {
 		return bookmarks;
+	}
+
+	public static void add(UserBookmark userBookmark) {// insering in database
+		userBookmarks[bookmarkIndex]=userBookmark;
+		bookmarkIndex++;
+
 	}
 }

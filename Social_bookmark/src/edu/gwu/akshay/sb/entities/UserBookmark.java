@@ -19,4 +19,9 @@ private User user;
 	public void setBookmark(Bookmark bookmark) {
 		this.bookmark = bookmark;
 	}
+
+	@Override
+	public String toString() {
+		return "UserBookmark [user=" + user + ", bookmark=" + bookmark + "]";
+	}
 }

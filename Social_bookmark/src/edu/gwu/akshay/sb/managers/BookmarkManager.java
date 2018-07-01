@@ -4,6 +4,8 @@ import edu.gwu.akshay.sb.dao.BookmarkDao;
 import edu.gwu.akshay.sb.entities.Book;
 import edu.gwu.akshay.sb.entities.Bookmark;
 import edu.gwu.akshay.sb.entities.Movie;
+import edu.gwu.akshay.sb.entities.User;
+import edu.gwu.akshay.sb.entities.UserBookmark;
 import edu.gwu.akshay.sb.entities.WebLink;
 
 public class BookmarkManager {
@@ -60,5 +62,12 @@ public class BookmarkManager {
 
 	public Bookmark[][] getBookmarks() {
 		return dao.getBookmarks();
+	}
+
+	public void saveUserBookmark(User user, Bookmark bookmark) {
+		UserBookmark userBookmark = new UserBookmark();
+		userBookmark.setUser(user);
+		userBookmark.setBookmark(bookmark);
+	dao.saveUserBookmark(userBookmark);
 	} 
 }
