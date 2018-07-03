@@ -2,6 +2,8 @@ package edu.gwu.akshay.sb.entities;
 
 import java.util.Arrays;
 
+import edu.gwu.akshay.sb.constants.MovieGenre;
+
 public class Movie extends Bookmark{
 
 	private int releaseYear;
@@ -54,5 +56,13 @@ public class Movie extends Bookmark{
 	public String toString() {
 		return "Movie [releaseYear=" + releaseYear + ", cast=" + Arrays.toString(cast) + ", directors="
 				+ Arrays.toString(directors) + ", genre=" + genre + ", imdbRating=" + imdbRating + "]";
+	}
+
+	@Override
+	public boolean isKidFriendlyEligible() {
+		if(genre.equals(MovieGenre.HORROR)|| genre.equals(MovieGenre.THRILLERS)) {
+			return false;
+		}
+		return true;
 	}
 }

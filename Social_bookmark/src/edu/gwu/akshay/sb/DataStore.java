@@ -46,8 +46,8 @@ public class DataStore {
 
 	private static void loadWebLinks() {
 		bookmarks[0][0] = BookmarkManager.getInstance().createWebLink(2000, "Taming Tiger, Part 2",
-				"	http://www.javaworld.com/article/2072759/core-java/taming-tiger--part-2.html",
-				"	http://www.javaworld.com");
+				"http://www.javaworld.com/article/2072759/core-java/taming-tiger--part-2.html",
+				"http://www.javaworld.com");
 		bookmarks[0][1] = BookmarkManager.getInstance().createWebLink(2001,
 				"How do I import a pre-existing Java project into Eclipse and get up and running?",
 				"http://stackoverflow.com/questions/142863/how-do-i-import-a-pre-existing-java-project-into-eclipse-and-get-up-and-running",
@@ -77,7 +77,7 @@ public class DataStore {
 	}
 
 	private static void loadBooks() {
-		bookmarks[2][0] = BookmarkManager.getInstance().createBook(4000, "Walden", 1854, "	Wilder Publications",
+		bookmarks[2][0] = BookmarkManager.getInstance().createBook(4000, "Walden", 1854, "Wilder Publications",
 				new String[] { "Henry David Thoreau" }, BookGenre.PHILOSOPHY, 4.3);
 		bookmarks[2][1] = BookmarkManager.getInstance().createBook(4001, "Self-Reliance and Other Essays", 1993,
 				"Dover Publications", new String[] { "Ralph Waldo Emerson" }, BookGenre.PHILOSOPHY, 4.5);
@@ -100,7 +100,7 @@ public class DataStore {
 		return bookmarks;
 	}
 
-	public static void add(UserBookmark userBookmark) {// insering in database
+	public static void add(UserBookmark userBookmark) {// inserting in database
 		userBookmarks[bookmarkIndex]=userBookmark;
 		bookmarkIndex++;
 
