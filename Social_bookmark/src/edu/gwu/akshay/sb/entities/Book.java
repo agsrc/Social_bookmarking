@@ -2,9 +2,12 @@ package edu.gwu.akshay.sb.entities;
 
 import java.util.Arrays;
 
+import org.apache.commons.lang3.StringUtils;
+
+import edu.askhay.sb.partner.Shareable;
 import edu.gwu.akshay.sb.constants.BookGenre;
 
-public class Book extends Bookmark {
+public class Book extends Bookmark implements Shareable{
 
 	private int publicationYear;
 	private String publisher;
@@ -64,6 +67,22 @@ public class Book extends Bookmark {
 			return false;
 		}
 		return true;
+	}
+
+	@Override
+	public String getItemData() {
+		StringBuilder builder =new StringBuilder();
+		builder.append("<item>");
+		builder.append("<type>Book</type>");
+		builder.append("<title>").append(getTitle()).append("</title>");
+		builder.append("<authors>").append(StringUtils.join(authors,",")).append("</authors>");//	apache common lang
+		builder.append("<publisher>").append(publisher).append("</publisher>");
+		builder.append("<publicationYear>").append(publicationYear).append("</publicationYear>");
+		builder.append("<genre>").append(genre).append("</genre>");
+		builder.append("<amazonRating>").append(amazonRating).append("</amazonRating>");
+		
+		builder.append("</item>");
+	return builder.toString();
 	}
 
 }

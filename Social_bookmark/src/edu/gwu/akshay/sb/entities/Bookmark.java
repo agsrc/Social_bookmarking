@@ -2,7 +2,7 @@ package edu.gwu.akshay.sb.entities;
 
 import edu.gwu.akshay.sb.constants.KidFriendlyStatus;
 
-public abstract  class Bookmark {
+public abstract  class Bookmark  {
 	private long id;
 	private String title;
 	private String profileUrl;

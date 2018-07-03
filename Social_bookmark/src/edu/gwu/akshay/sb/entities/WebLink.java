@@ -1,10 +1,11 @@
 package edu.gwu.akshay.sb.entities;
 
-public class WebLink extends Bookmark {
+import edu.askhay.sb.partner.Shareable;
+
+public class WebLink extends Bookmark implements Shareable {
 
 	private String url;
 	private String host;
-
 	public String getUrl() {
 		return url;
 	}
@@ -28,10 +29,21 @@ public class WebLink extends Bookmark {
 
 	@Override
 	public boolean isKidFriendlyEligible() {
-		if(url.contains("porn")||getTitle().contains("porn")||host.contains("adult")) {
+		if (url.contains("porn") || getTitle().contains("porn") || host.contains("adult")) {
 			return false;
 		}
 		return true;
+	}
+
+	@Override
+	public String getItemData() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("<item>");
+		builder.append("<type>Weblink</type>");
+		builder.append("url").append(url).append("</url>");
+		builder.append("<host>").append(host).append("</host>");
+		builder.append("</item>");
+		return builder.toString();
 	}
 
 }
