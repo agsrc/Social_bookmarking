@@ -14,7 +14,7 @@ public class BookmarkManager {
 	}
 
 	private static BookmarkManager instance = new BookmarkManager();
-	private static BookmarkDao dao =new BookmarkDao();
+	private static BookmarkDao dao = new BookmarkDao();
 
 	public static BookmarkManager getInstance() {
 		return instance;
@@ -48,7 +48,7 @@ public class BookmarkManager {
 	}
 
 	public Book createBook(long id, String title, int publicationYear, String publisher, String[] authors, String genre,
-			 double amazonRating) {
+			double amazonRating) {
 		Book book = new Book();
 		book.setAmazonRating(amazonRating);
 		book.setTitle(title);
@@ -68,6 +68,28 @@ public class BookmarkManager {
 		UserBookmark userBookmark = new UserBookmark();
 		userBookmark.setUser(user);
 		userBookmark.setBookmark(bookmark);
-	dao.saveUserBookmark(userBookmark);
-	} 
+		dao.saveUserBookmark(userBookmark);
+	}
+
+	public void setKidFriendly(User user, String kidFriendlyStatus, Bookmark bookmark) {
+
+		bookmark.setKidFriendlyStatus(kidFriendlyStatus);
+		bookmark.setKidFriendlyMarkedBy(user);
+		// bookkeeping
+		System.out.println("Kid-friendly status --" + "[" + kidFriendlyStatus + "] -- MarkedBy : " + user.getEmail()
+				+ "," + bookmark);
+
+	}
+
+	public void share(User user, Bookmark bookmark) {
+		bookmark.setSharedBy(user);
+
+		System.out.println("Data to be shared: ");
+		if (bookmark instanceof Book) {
+			System.out.println(((Book) bookmark).getItemData());
+	}
+		else if (bookmark instanceof WebLink) {
+			System.out.println(((WebLink)bookmark).getItemData());
+		}
+	}
 }

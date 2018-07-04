@@ -18,4 +18,14 @@ public class BookmarkController {
 		BookmarkManager.getInstance().saveUserBookmark(user,bookmark);
 		
 	}
+
+	public void setKidFriendlyStatus(User user, String kidFriendlyStatus, Bookmark bookmark) {
+	BookmarkManager.getInstance().setKidFriendly(user, kidFriendlyStatus, bookmark);
+		
+	}
+
+	public void share(User user, Bookmark bookmark) {
+		BookmarkManager.getInstance().share(user,bookmark);
+		
+	}
 }

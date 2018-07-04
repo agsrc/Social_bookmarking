@@ -1,5 +1,6 @@
 package edu.gwu.akshay.sb;
 
+import edu.askhay.sb.partner.Shareable;
 import edu.gwu.akshay.sb.constants.KidFriendlyStatus;
 import edu.gwu.akshay.sb.constants.UserType;
 import edu.gwu.akshay.sb.controllers.BookmarkController;
@@ -17,25 +18,43 @@ public class View {
 					boolean isBookmarked = getBookmarkDecision(bookmark);
 					if (isBookmarked) {
 						bookmarkCount++;
-						
+
 						BookmarkController.getInstance().saveUserBookmark(user, bookmark);
 						System.out.println("new item bookmarked --" + bookmark);
 					}
 
 				}
-				// mark as kid-friendly
+
 				if (user.getUserType().equals(UserType.EDITOR) || user.getUserType().equals(UserType.CHIEF_EDITOR)) {
+					// mark as kid-friendly
 					if (bookmark.isKidFriendlyEligible()
 							&& bookmark.getKidFriendlyStatus().equals(KidFriendlyStatus.UNKNOWN)) {
 						String kidFriendlyStatus = getKidFriendlyStatusDecision();
+
 						if (!kidFriendlyStatus.equals(KidFriendlyStatus.UNKNOWN)) {
+							BookmarkController.getInstance().setKidFriendlyStatus(user, kidFriendlyStatus, bookmark);
 							bookmark.setKidFriendlyStatus(kidFriendlyStatus);
-							System.out.println("Kid-friendly status --[" + kidFriendlyStatus+"] --  "  + bookmark);
+							System.out.println("Kid-friendly status --[" + kidFriendlyStatus + "] --  " + bookmark);
 						}
+					}
+					// Sharing!!
+					if (bookmark.getKidFriendlyStatus().equals(KidFriendlyStatus.APPROVED)
+							&& bookmark instanceof Shareable) {
+						boolean isShared=getShareDecision();
+						if(isShared) {
+							BookmarkController.getInstance().share(user,bookmark);
+						}
+
 					}
 				}
 			}
 		}
+	}
+//TODO: Below methods simulate user i/p. After IO chapter--input console will be used.
+	private static boolean getShareDecision() {
+		return Math.random() < 0.5 ? true : false;
+
+		
 	}
 
 	/*
