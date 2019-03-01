@@ -1,13 +1,16 @@
 package edu.gwu.akshay.sb;
 
+import edu.gwu.akshay.sb.backgroungjobs.WebpageDownloaderTask;
 import edu.gwu.akshay.sb.entities.Bookmark;
 import edu.gwu.akshay.sb.entities.User;
 import edu.gwu.akshay.sb.managers.BookmarkManager;
 import edu.gwu.akshay.sb.managers.UserManager;
 
+import java.util.List;
+
 public class Launch {
-	private static User[] users;
-	private static Bookmark[][] bookmarks;
+	private static List<User> users;
+	private static List<List<Bookmark>> bookmarks;
 
 	private static void printUserData() {
 		for (User user : users) {
@@ -30,8 +33,8 @@ public class Launch {
 	}
 
 	private static void printBookmarkData() {
-		for (Bookmark[] list : bookmarks) {
-			for (Bookmark bookmark : list) {
+		for (List<Bookmark> bookmarkList : bookmarks) {
+			for (Bookmark bookmark : bookmarkList) {
 				System.out.println(bookmark);
 			}
 		}
@@ -47,6 +50,13 @@ public class Launch {
 	public static void main(String[] args) {
 		loadData();
 		start();
+
+		// Background Jobs
+		runDownloaderJob();
 	}
+		private static void runDownloaderJob(){
+			WebpageDownloaderTask task = new WebpageDownloaderTask(true);
+			(new Thread(task)).start();
+		}
 
 }

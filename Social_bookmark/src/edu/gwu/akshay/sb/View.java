@@ -7,14 +7,16 @@ import edu.gwu.akshay.sb.controllers.BookmarkController;
 import edu.gwu.akshay.sb.entities.Bookmark;
 import edu.gwu.akshay.sb.entities.User;
 
+import java.util.List;
+
 public class View {
-	public static void browse(User user, Bookmark[][] bookmarks) {
+	public static void browse(User user, List<List<Bookmark>> bookmarks) {
 		System.out.println("\n" + user.getEmail() + "is browsing items...");
 		int bookmarkCount = 0;
 
-		for (Bookmark[] bookmarkList : bookmarks) {
+		for (List<Bookmark> bookmarkList : bookmarks) {
 			for (Bookmark bookmark : bookmarkList) {// book marking!
-				if (bookmarkCount < DataStore.USER_BOOKMARK_LIMIT) {
+				//if (bookmarkCount < DataStore.USER_BOOKMARK_LIMIT) {
 					boolean isBookmarked = getBookmarkDecision(bookmark);
 					if (isBookmarked) {
 						bookmarkCount++;
@@ -23,13 +25,13 @@ public class View {
 						System.out.println("new item bookmarked --" + bookmark);
 					}
 
-				}
+				//}
 
 				if (user.getUserType().equals(UserType.EDITOR) || user.getUserType().equals(UserType.CHIEF_EDITOR)) {
 					// mark as kid-friendly
 					if (bookmark.isKidFriendlyEligible()
 							&& bookmark.getKidFriendlyStatus().equals(KidFriendlyStatus.UNKNOWN)) {
-						String kidFriendlyStatus = getKidFriendlyStatusDecision();
+						KidFriendlyStatus kidFriendlyStatus = getKidFriendlyStatusDecision();
 
 						if (!kidFriendlyStatus.equals(KidFriendlyStatus.UNKNOWN)) {
 							BookmarkController.getInstance().setKidFriendlyStatus(user, kidFriendlyStatus, bookmark);
@@ -69,7 +71,7 @@ public class View {
 	 * BookmarkController.getInstance().saveUserBookmark(user, bookmark);
 	 * System.out.println(bookmark); } }
 	 */
-	private static String getKidFriendlyStatusDecision() {
+	private static KidFriendlyStatus getKidFriendlyStatusDecision() {
 		return Math.random() < 0.4 ? KidFriendlyStatus.APPROVED
 				: ((Math.random() >= 0.4 && Math.random() < 0.8) ? KidFriendlyStatus.REJECTED
 						: KidFriendlyStatus.UNKNOWN); // nested ternary

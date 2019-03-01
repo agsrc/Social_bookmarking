@@ -1,7 +1,11 @@
 package edu.gwu.akshay.sb.managers;
 
+import edu.gwu.akshay.sb.constants.Gender;
+import edu.gwu.akshay.sb.constants.UserType;
 import edu.gwu.akshay.sb.dao.UserDao;
 import edu.gwu.akshay.sb.entities.User;
+
+import java.util.List;
 
 //managers would be invoked through controller
 public class UserManager { // creating singletons in manager package-- to avoid unauthorized instantiation
@@ -15,8 +19,8 @@ public class UserManager { // creating singletons in manager package-- to avoid 
 		return instance;
 	}
 
-	public User createUser(long id, String email, String password, String firstname, String lastname, int gender,
-			String userType) {
+	public User createUser(long id, String email, String password, String firstname, String lastname, Gender gender,
+			UserType userType) {
 		User user = new User();
 		user.setId(id);
 		user.setEmail(email);
@@ -28,7 +32,7 @@ public class UserManager { // creating singletons in manager package-- to avoid 
 		return user;
 	}
 
-	public User[] getUsers() {
+	public List<User> getUsers() {
 		return dao.getUsers();
 	}
 

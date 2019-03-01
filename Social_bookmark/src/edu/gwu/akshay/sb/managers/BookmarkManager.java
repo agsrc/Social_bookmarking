@@ -1,5 +1,8 @@
 package edu.gwu.akshay.sb.managers;
 
+import edu.gwu.akshay.sb.constants.BookGenre;
+import edu.gwu.akshay.sb.constants.KidFriendlyStatus;
+import edu.gwu.akshay.sb.constants.MovieGenre;
 import edu.gwu.akshay.sb.dao.BookmarkDao;
 import edu.gwu.akshay.sb.entities.Book;
 import edu.gwu.akshay.sb.entities.Bookmark;
@@ -7,6 +10,12 @@ import edu.gwu.akshay.sb.entities.Movie;
 import edu.gwu.akshay.sb.entities.User;
 import edu.gwu.akshay.sb.entities.UserBookmark;
 import edu.gwu.akshay.sb.entities.WebLink;
+import edu.gwu.akshay.sb.util.HttpConnect;
+import edu.gwu.akshay.sb.util.IOUtil;
+
+import java.net.MalformedURLException;
+import java.net.URISyntaxException;
+import java.util.List;
 
 public class BookmarkManager {
 
@@ -21,7 +30,7 @@ public class BookmarkManager {
 	}
 
 	public Movie createMovie(long id, String title, String profileUrl, int releaseYear, String[] cast,
-			String[] directors, String genre, double imdbRating) {
+							 String[] directors, MovieGenre genre, double imdbRating) {
 		Movie movie = new Movie();
 		movie.setCast(cast);
 		movie.setDirectors(directors);
@@ -47,7 +56,7 @@ public class BookmarkManager {
 
 	}
 
-	public Book createBook(long id, String title, int publicationYear, String publisher, String[] authors, String genre,
+	public Book createBook(long id, String title, int publicationYear, String publisher, String[] authors, BookGenre genre,
 			double amazonRating) {
 		Book book = new Book();
 		book.setAmazonRating(amazonRating);
@@ -60,7 +69,7 @@ public class BookmarkManager {
 		return book;
 	}
 
-	public Bookmark[][] getBookmarks() {
+	public List<List<Bookmark>> getBookmarks() {
 		return dao.getBookmarks();
 	}
 
@@ -69,9 +78,29 @@ public class BookmarkManager {
 		userBookmark.setUser(user);
 		userBookmark.setBookmark(bookmark);
 		dao.saveUserBookmark(userBookmark);
+		if (bookmark instanceof WebLink) {
+			try {
+				String url = ((WebLink)bookmark).getUrl();
+				if (!url.endsWith(".pdf")) {
+					String webpage = HttpConnect.download(((WebLink)bookmark).getUrl());
+					if (webpage != null) {
+						IOUtil.write(webpage, bookmark.getId());
+					}
+				}
+			} catch (MalformedURLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (URISyntaxException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+
+		dao.saveUserBookmark(userBookmark);
 	}
 
-	public void setKidFriendly(User user, String kidFriendlyStatus, Bookmark bookmark) {
+
+	public void setKidFriendly(User user, KidFriendlyStatus kidFriendlyStatus, Bookmark bookmark) {
 
 		bookmark.setKidFriendlyStatus(kidFriendlyStatus);
 		bookmark.setKidFriendlyMarkedBy(user);

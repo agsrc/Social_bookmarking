@@ -1,13 +1,16 @@
 package edu.gwu.akshay.sb.entities;
 
+import edu.gwu.akshay.sb.constants.Gender;
+import edu.gwu.akshay.sb.constants.UserType;
+
 public class User {
 	private long id;
 	private String email;
 	private String password;
 	private String firstname;
 	private String lastname;
-	private int gender;
-	private String userType;
+	private Gender gender;
+	private UserType userType;
 
 
 
@@ -43,11 +46,11 @@ public class User {
 		this.lastname = lastname;
 	}
 
-	public String getUserType() {
+	public UserType getUserType() {
 		return userType;
 	}
 
-	public void setUserType(String userType) {
+	public void setUserType(UserType userType) {
 		this.userType = userType;
 	}
 
@@ -59,11 +62,11 @@ public class User {
 		this.id = id;
 	}
 
-	public int getGender() {
+	public Gender getGender() {
 		return gender;
 	}
 
-	public void setGender(int gender) {
+	public void setGender(Gender gender) {
 		this.gender = gender;
 	}
 

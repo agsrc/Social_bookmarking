@@ -1,9 +1,16 @@
 package edu.gwu.akshay.sb.constants;
 
-public class KidFriendlyStatus {
-	private KidFriendlyStatus() {}
-	public static final String APPROVED="approved";
-	public static final String REJECTED="rejected";
-	public static final String UNKNOWN="unknown";
+public enum KidFriendlyStatus {
+	
+	 APPROVED("approved"),
+	 REJECTED("rejected"),
+	 UNKNOWN("unknown");
+		private KidFriendlyStatus(String name) {
+		this.name =name;
+		}
 
+		private String name;
+		public String getName(){
+			return name;
+		}
 }
